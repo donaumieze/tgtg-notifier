@@ -1,0 +1,29 @@
+name: TGTG Notifier Run
+
+on:
+  schedule:
+    - cron: '0 7-22 * * *'
+  workflow_dispatch:
+
+jobs:
+  check-tgtg:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run Notifier
+        env:
+          TGTG_EMAIL: ${{ secrets.TGTG_EMAIL }}
+          TGTG_PASSWORD: ${{ secrets.TGTG_PASSWORD }}
+          TGTG_SECRET: ${{ secrets.TGTG_SECRET }}
+        run: pnpm start
