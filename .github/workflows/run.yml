@@ -27,6 +27,9 @@ jobs:
       - name: Build application
         run: pnpm build
 
+      - name: Create config.json
+        run: echo '{}' > config.json
+
       - name: Run Notifier
         env:
           TGTG_EMAIL: ${{ secrets.TGTG_EMAIL }}
