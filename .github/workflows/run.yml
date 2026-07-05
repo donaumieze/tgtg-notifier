@@ -24,6 +24,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Build application
+        run: pnpm build
+
       - name: Run Notifier
         env:
           TGTG_EMAIL: ${{ secrets.TGTG_EMAIL }}
